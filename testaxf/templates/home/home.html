@@ -1,0 +1,435 @@
+{% extends 'base_main.html' %}
+{% load static %}
+{% block extCSS %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'app/home/home.css' %}">
+{% endblock %}
+{% block EXTJS %}
+    <script type="text/javascript" src="{% static 'app/home/js/home.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+    <div id="home">
+        {#   顶部轮播       #}
+        <div class="swiper-container" id="topSwiper">
+            <div class="swiper-wrapper">
+                <!--处理轮播banner图-->
+                {% for item in wheelList %}
+                    <div class="swiper-slide">
+                        <table>
+                            <ul>
+                                <li>
+                                    <a href="#"><img src="{{ item.img }}" alt=""></a>
+                                </li>
+                            </ul>
+                        </table>
+                    </div>
+                {% endfor %}
+                <!-- 处理结束 -->
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
+        </div>
+        {#         导航         #}
+
+        <div class="topMenu">
+            <nav>
+                <ul>
+                    <!-- 处理导航数据 -->
+            {% for nav in navList %}
+                <li>
+                    <img src="{{ nav.img }}" alt="">
+                    <span>{{ nav.name }}</span>
+                </li>
+            {% endfor %}
+                    <!--处理结束-->
+                </ul>
+            </nav>
+        </div>
+
+
+        {#         必购     #}
+        <div id="swiperMenu" class="swiper-container">
+            <ul class="swiper-wrapper">
+                <!-- 处理必购商品信息 -->
+            {% for mustBuy in mustBuyList %}
+                <li class="swiper-slide">
+                <img src="{{ mustBuy.img }}" alt="">
+            {% endfor %}
+                </li>
+                <!-- 处理结束 -->
+            </ul>
+        </div>
+        {#          商店    #}
+        <div class="CVS">
+            {% for shop in shopList %}
+                    {% ifequal forloop.counter 1 %}
+                    <!--处理第一个店铺的数据的图片-->
+                    <h2>
+                        <img src="{{ shop.img }}" alt="shop.name">
+                    </h2>
+                    <!--处理结束-->
+                    {% endifequal %}
+            {% endfor %}
+            {% for shop in shopList %}
+                {% if forloop.counter > 1 and forloop.counter < 4 %}
+                    {% ifequal forloop.counter 2 %}
+                        <fieldset>
+                    {% endifequal %}
+                <!--处理第二个到第四个数据-->
+                <a href="#">
+                    <img src="{{ shop.img }}" alt="shop.name">
+                </a>
+                       {% ifequal forloop.counter 3 %}
+                    </fieldset>
+                    {% endifequal %}
+                {% endif %}
+            {% endfor %}
+                <!--处理结束-->
+
+            {% for shop in shopList %}
+                {% ifequal forloop.counter 4 %}
+                    <ul>
+                {% endifequal %}
+                <!--处理第五个到第八个数据-->
+                    {% if forloop.counter > 3  and forloop.counter < 8 %}
+                    <li>
+                        <a href="#">
+                            <img src="{{ shop.img }}">
+                            <span>{{ shop.name }}</span>
+                        </a>
+
+                    </li>
+                    <!--处理结束-->
+                    {% endif %}
+                {% ifequal forloop.counter 7 %}
+            </ul>
+                {% endifequal %}
+        {% endfor %}
+            {% for shop in shopList %}
+                {% ifequal forloop.counter 8 %}
+                    <ol>
+                {% endifequal %}
+                    {% if forloop.counter > 7 and forloop.counter < 12 %}
+                <!--处理第八个到第十二个数据-->
+                <li>
+                    <a href="#">
+                        <img src="{{ shop.img }}" alt="">
+                    </a>
+                </li>
+                    {% endif %}
+            <!--处理结束-->
+                {% ifequal forloop.counter 11 %}
+                    </ol>
+                {% endifequal %}
+        {% endfor %}
+        </div>
+
+        {#         主要显示 #}
+
+        <div class="mainInfo">
+            <!--商品展示-->
+
+            <section>
+                <h3>{{ mainShow1.name }}<span></span><a href="#">更多&gt;</a></h3>
+                <div>
+                    <a href="#">
+                        <img src="{{ mainShow1.img }}">
+                    </a>
+                </div>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <img src="{{ mainShow1.img1 }}" alt="">
+                            <p class="description">
+                                {{ mainShow1.longname1 }}
+                            </p>
+                            <span>{{ mainShow1.price1 }}</span>
+                            <s>{{ mainShow1.marketprice1 }}</s>
+                        </a>
+                        <button>
+                            <span>+</span>
+                        </button>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="{{ mainShow1.img2 }}" alt="">
+                            <p class="description">
+                                {{ mainShow1.longname2 }}
+                            </p>
+                            <span>{{ mainShow1.price2 }}</span>
+                            <s>{{ mainShow1.marketprice2 }}</s>
+                        </a>
+                        <button>
+                            <span>+</span>
+                        </button>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="{{ mainShow1.img3 }}" alt="">
+                            <p class="description">
+                                {{ mainShow1.longname3 }}
+                            </p>
+                            <span>{{ mainShow1.price3 }}</span>
+                            <s>{{ mainShow1.marketprice3 }}</s>
+                        </a>
+                        <button>
+                            <span>+</span>
+                        </button>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h3>{{ mainShow2.name }}<span></span><a href="#">更多&gt;</a></h3>
+                <div>
+                    <a href="#">
+                        <img src="{{ mainShow2.img }}">
+                    </a>
+                </div>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <img src="{{ mainShow2.img1 }}" alt="">
+                            <p class="description">
+                                {{ mainShow2.longname1 }}
+                            </p>
+                            <span>{{ mainShow2.price1 }}</span>
+                            <s>{{ mainShow2.marketprice1 }}</s>
+                        </a>
+                        <button>
+                            <span>+</span>
+                        </button>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="{{ mainShow2.img2 }}" alt="">
+                            <p class="description">
+                                {{ mainShow2.longname2 }}
+                            </p>
+                            <span>{{ mainShow2.price2 }}</span>
+                            <s>{{ mainShow1.marketprice2 }}</s>
+                        </a>
+                        <button>
+                            <span>+</span>
+                        </button>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="{{ mainShow1.img3 }}" alt="">
+                            <p class="description">
+                                {{ mainShow2.longname3 }}
+                            </p>
+                            <span>{{ mainShow1.price3 }}</span>
+                            <s>{{ mainShow1.marketprice3 }}</s>
+                        </a>
+                        <button>
+                            <span>+</span>
+                        </button>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h3>{{ mainShow3.name }}<span></span><a href="#">更多&gt;</a></h3>
+                <div>
+                    <a href="#">
+                        <img src="{{ mainShow3.img }}">
+                    </a>
+                </div>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <img src="{{ mainShow3.img1 }}" alt="">
+                            <p class="description">
+                                {{ mainShow3.longname1 }}
+                            </p>
+                            <span>{{ mainShow3.price1 }}</span>
+                            <s>{{ mainShow3.marketprice1 }}</s>
+                        </a>
+                        <button>
+                            <span>+</span>
+                        </button>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="{{ mainShow3.img2 }}" alt="">
+                            <p class="description">
+                                {{ mainShow3.longname2 }}
+                            </p>
+                            <span>{{ mainShow3.price2 }}</span>
+                            <s>{{ mainShow3.marketprice2 }}</s>
+                        </a>
+                        <button>
+                            <span>+</span>
+                        </button>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="{{ mainShow3.img3 }}" alt="">
+                            <p class="description">
+                                {{ mainShow3.longname3 }}
+                            </p>
+                            <span>{{ mainShow3.price3 }}</span>
+                            <s>{{ mainShow3.marketprice3 }}</s>
+                        </a>
+                        <button>
+                            <span>+</span>
+                        </button>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h3>{{ mainShow4.name }}<span></span><a href="#">更多&gt;</a></h3>
+                <div>
+                    <a href="#">
+                        <img src="{{ mainShow4.img }}">
+                    </a>
+                </div>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <img src="{{ mainShow4.img1 }}" alt="">
+                            <p class="description">
+                                {{ mainShow4.longname1 }}
+                            </p>
+                            <span>{{ mainShow4.price1 }}</span>
+                            <s>{{ mainShow4.marketprice1 }}</s>
+                        </a>
+                        <button>
+                            <span>+</span>
+                        </button>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="{{ mainShow4.img2 }}" alt="">
+                            <p class="description">
+                                {{ mainShow4.longname2 }}
+                            </p>
+                            <span>{{ mainShow4.price2 }}</span>
+                            <s>{{ mainShow4.marketprice2 }}</s>
+                        </a>
+                        <button>
+                            <span>+</span>
+                        </button>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="{{ mainShow4.img3 }}" alt="">
+                            <p class="description">
+                                {{ mainShow4.longname3 }}
+                            </p>
+                            <span>{{ mainShow4.price3 }}</span>
+                            <s>{{ mainShow4.marketprice3 }}</s>
+                        </a>
+                        <button>
+                            <span>+</span>
+                        </button>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h3>{{ mainShow5.name }}<span></span><a href="#">更多&gt;</a></h3>
+                <div>
+                    <a href="#">
+                        <img src="{{ mainShow5.img }}">
+                    </a>
+                </div>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <img src="{{ mainShow5.img1 }}" alt="">
+                            <p class="description">
+                                {{ mainShow5.longname1 }}
+                            </p>
+                            <span>{{ mainShow5.price1 }}</span>
+                            <s>{{ mainShow5.marketprice1 }}</s>
+                        </a>
+                        <button>
+                            <span>+</span>
+                        </button>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="{{ mainShow5.img2 }}" alt="">
+                            <p class="description">
+                                {{ mainShow5.longname2 }}
+                            </p>
+                            <span>{{ mainShow5.price2 }}</span>
+                            <s>{{ mainShow5.marketprice2 }}</s>
+                        </a>
+                        <button>
+                            <span>+</span>
+                        </button>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="{{ mainShow5.img3 }}" alt="">
+                            <p class="description">
+                                {{ mainShow5.longname3 }}
+                            </p>
+                            <span>{{ mainShow5.price3 }}</span>
+                            <s>{{ mainShow5.marketprice3 }}</s>
+                        </a>
+                        <button>
+                            <span>+</span>
+                        </button>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h3>{{ mainShow6.name }}<span></span><a href="#">更多&gt;</a></h3>
+                <div>
+                    <a href="#">
+                        <img src="{{ mainShow6.img }}">
+                    </a>
+                </div>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <img src="{{ mainShow6.img1 }}" alt="">
+                            <p class="description">
+                                {{ mainShow6.longname1 }}
+                            </p>
+                            <span>{{ mainShow6.price1 }}</span>
+                            <s>{{ mainShow6.marketprice1 }}</s>
+                        </a>
+                        <button>
+                            <span>+</span>
+                        </button>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="{{ mainShow6.img2 }}" alt="">
+                            <p class="description">
+                                {{ mainShow6.longname2 }}
+                            </p>
+                            <span>{{ mainShow6.price2 }}</span>
+                            <s>{{ mainShow6.marketprice2 }}</s>
+                        </a>
+                        <button>
+                            <span>+</span>
+                        </button>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="{{ mainShow6.img3 }}" alt="">
+                            <p class="description">
+                                {{ mainShow6.longname3 }}
+                            </p>
+                            <span>{{ mainShow6.price3 }}</span>
+                            <s>{{ mainShow6.marketprice3 }}</s>
+                        </a>
+                        <button>
+                            <span>+</span>
+                        </button>
+                    </li>
+                </ul>
+            </section>
+
+            <!--商品展示结束-->
+
+
+        </div>
+    </div>
+
+{% endblock %}
